@@ -8,14 +8,13 @@ const { authenticatedAdmin, authenticated } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 router.use('/admin', authenticatedAdmin, admin)
-
 router.get('/signup', userController.signUpPage)
 router.post('/signup', userController.signUp)
 router.get('/signin', userController.signInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.signIn)
 router.get('/logout', userController.logout)
-
 router.get('/restaurants', authenticated, restController.getRestaurants)
+router.get('/', authenticated, restController.getRestaurants)
 router.use('/', generalErrorHandler) // 加入這行
 
 module.exports = router
